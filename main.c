@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
 		char c;
 		char *str;
 			
-		while(scanf("%c", &c) && c != '\n')
+		while((c = getchar()) != EOF)
 		{
 			//*str = c;
-			printf("%c", c);
+			//printf("%c", c);
 		}
 		//printf"%s", str);
 		printf("\n");
