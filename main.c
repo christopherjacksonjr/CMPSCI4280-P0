@@ -1,54 +1,66 @@
 #include<stdio.h>
-//#include "node.h"
-//#include "traversals.h"
-//#include "buildTree.h"
+#include<string.h>
+#include<iostream>
+#include<string>
+#include<fstream>
+#include"node.h"
+#include"tree.h"
 
+using namespace std;
 
 int main(int argc, char* argv[]) 
 {
+	//Setting variables.
+	FILE *fp;
+
 	//process command line arguments and make sure file is readable, error otherwise.
   	if(argc == 2)
 	{
 		//Setting variables.
-		FILE *fp;
-		char *filename = argv[1];
-		char c;
+		char* filename = argv[1];
 
 		//Opening file & error checking.
 		fp = fopen(filename, "r");
+
 		if(fp == NULL)
 		{
 			printf("Could not open file %s.\n", filename);
 			return 1;
 		}
-		
-		printf("%s\n", filename);
-		while((c = fgetc(fp)) != EOF)
-		{
-			printf("%c", c);
+		else
+		{	
+			//Passing file to buildTree function.
+			node_t *root = buildTree(fp);
+
+			//Printing each tree traversal: preorder, inorder, and postorder.
+			printf("Preorder\n");
+			printPreorder(root);
+			printf("\n\nInorder\n");
+			printInorder(root);
+			printf("\n\nPostorder\n");
+			printPostorder(root);
 		}
 
 		fclose(fp);
 	}
+
 	//set up keyboard processing so that below the input is not relevant
 	if(argc < 2)
 	{
-		char c;
-		char *str;
-			
-		while((c = getchar()) != EOF)
-		{
-			//*str = c;
-			//printf("%c", c);
-		}
-		//printf"%s", str);
-		printf("\n");
+		//Setting fp for stin keyboard entry.
+		fp = stdin;
+
+		//Passing file to buildTree function.
+		node_t *root = buildTree(fp);
+
+		//Printing each tree traveral: preorder, inorder, and postorder.
+		printf("Preorder\n");
+                printPreorder(root);
+                printf("\n\nInorder\n");
+                printInorder(root);
+                printf("\n\nPostorder\n");
+                printPostorder(root);
 	}
-	//node_t *root = buildTree(file);
-	//traversalPreorder(root);
-	//traversalInorder(root);
-	//traversalPostorder(root);
-	//printf("Hello world!\n");
 	
 	return 0;
 }
